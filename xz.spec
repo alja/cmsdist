@@ -10,7 +10,7 @@ BuildRequires: autotools
 %setup -n %{n}-%{realversion}
 
 %build
-./autoreconf -fi
+autoreconf -fi
 ./configure CFLAGS='-fPIC -Ofast' --prefix=%{i} --disable-static --disable-nls --disable-rpath --disable-dependency-tracking --disable-doc
 make %{makeprocesses}
 
