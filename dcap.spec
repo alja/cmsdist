@@ -1,7 +1,7 @@
 ### RPM external dcap 2.47.8
-%define tag c1eb05d1f0
+%define tag 764860e0a4
 %define branch cms/%{realversion}
-%define github_user gartung
+%define github_user cms-externals
 Source: git+https://github.com/%github_user/%{n}.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 BuildRequires: autotools
