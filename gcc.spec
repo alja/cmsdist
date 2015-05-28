@@ -1,10 +1,10 @@
-### RPM external gcc 4.9.2
+### RPM external gcc 4.9.1
 ## INITENV +PATH LD_LIBRARY_PATH %i/lib64
 #Source0: ftp://gcc.gnu.org/pub/gcc/snapshots/4.7.0-RC-20120302/gcc-4.7.0-RC-20120302.tar.bz2
 # Use the svn repository for fetching the sources. This gives us more control while developing
 # a new platform so that we can compile yet to be released versions of the compiler.
-%define gccRevision 223195
-%define gccBranch tags/gcc_4_9_2_release
+%define gccRevision 212975
+%define gccBranch tags/gcc_4_9_1_release
 
 %define moduleName gcc-%(echo %{gccBranch} | tr / _)-%{gccRevision}
 Source0: svn://gcc.gnu.org/svn/gcc/%{gccBranch}?module=%{moduleName}&revision=%{gccRevision}&output=/%{moduleName}.tar.gz
@@ -251,8 +251,8 @@ cd ../cloog-%{cloogVersion}
 make %{makeprocesses}
 make install
 
-# PG taken from http://git.sagemath.org/sage.git/plain/build/pkgs/gcc/spkg-install?id=f62f6c37abbc7dbbfc68a9e8faa7d2e81eb48ca9
-# which builds gcc 491
+# PG taken from http://git.sagemath.org/sage.git/tree/build/pkgs/gcc/spkg-install
+# which builds gcc 491 on OSX 10X
 # On OS X 10.9, g++ and the cdefs.h header are currently incompatible
 %if %isdarwin 
     mkdir -p %{i}/tmp/sw/include/sys
@@ -301,7 +301,7 @@ case %{cmsplatf} in
 ../configure --prefix=%{i} --disable-multilib --disable-nls --with-system-zlib --disable-dssi \
              --enable-languages=c,c++,fortran$ADDITIONAL_LANGUAGES \
              --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object \
-             --enable-plugin --enable-linker-build-id --with-build-config=bootstrap-debug \
+             --enable-plugin --enable-linker-build-id --with-build-config=bootstrap \
              $CONF_GCC_OS_SPEC $CONF_GCC_WITH_LTO --with-gmp=%{i} --with-mpfr=%{i} \
              --with-mpc=%{i} --with-isl=%{i} --with-cloog=%{i} --enable-checking=release \
              --build=%{_build} --host=%{_host} --enable-libstdcxx-time=rt $CONF_GCC_ARCH_SPEC \
