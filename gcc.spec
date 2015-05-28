@@ -1,10 +1,10 @@
-### RPM external gcc 4.9.2
+### RPM external gcc 4.9.1
 ## INITENV +PATH LD_LIBRARY_PATH %i/lib64
 #Source0: ftp://gcc.gnu.org/pub/gcc/snapshots/4.7.0-RC-20120302/gcc-4.7.0-RC-20120302.tar.bz2
 # Use the svn repository for fetching the sources. This gives us more control while developing
 # a new platform so that we can compile yet to be released versions of the compiler.
-%define gccRevision 223195
-%define gccBranch tags/gcc_4_9_2_release
+%define gccRevision 212975
+%define gccBranch tags/gcc_4_9_1_release
 
 %define moduleName gcc-%(echo %{gccBranch} | tr / _)-%{gccRevision}
 Source0: svn://gcc.gnu.org/svn/gcc/%{gccBranch}?module=%{moduleName}&revision=%{gccRevision}&output=/%{moduleName}.tar.gz
@@ -14,6 +14,8 @@ Source0: svn://gcc.gnu.org/svn/gcc/%{gccBranch}?module=%{moduleName}&revision=%{
 %define isamd64 %(case %{cmsplatf} in (*amd64*) echo 1 ;; (*) echo 0 ;; esac)
 %define isarmv7 %(case %{cmsplatf} in (*armv7*) echo 1 ;; (*) echo 0 ;; esac)
 %define iscpu_marvell %(cat /proc/cpuinfo | grep 'Marvell PJ4Bv7' 2>&1 >/dev/null && echo 1 || echo 0)
+%define isdarwin13 %(uname -sr | grep 'Darwin 13\.'  2>&1 >/dev/null && echo 1 || echo 0)
+%define isdarwin14 %(uname -sr | grep 'Darwin 13\.'  2>&1 >/dev/null && echo 1 || echo 0)
 
 %define keep_archives true
 
@@ -49,6 +51,20 @@ Source11: http://garr.dl.sourceforge.net/project/flex/flex-%{flexVersion}.tar.bz
 Patch2: https://gmplib.org/repo/gmp/raw-rev/1fab0adc5ff7
 %endif
 
+# PG taken from http://git.sagemath.org/sage.git/plain/build/pkgs/gcc/spkg-install?id=f62f6c37abbc7dbbfc68a9e8faa7d2e81eb48ca9
+# which builds gcc 491
+# On OS X 10.9, g++ and the cdefs.h header are currently incompatible
+%if %isdarwin13 
+    mkdir -p %{i}/include/sys
+    sed 's+defined(__GNUC_STDC_INLINE__)+& \&\& !defined(__cplusplus)+' /usr/include/sys/cdefs.h > %{i}/include/sys/cdefs.h
+%endif
+
+# On OS X 10.10 there is random ObjC stuff in a C header
+%if %isdarwin14
+    mkdir -p %{i}/include/dispatch
+    sed 's+typedef void (\^dispatch_block_t)(void)+typedef void* dispatch_block_t+' /usr/include/dispatch/object.h > %{i}/include/dispatch/object.h
+fi
+%endif
 
 %prep
 
