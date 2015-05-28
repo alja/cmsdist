@@ -1,4 +1,4 @@
-### RPM external cmake 2.8.12.2
+### RPM external cmake 2.8.10
 %define downloaddir %(echo %realversion | cut -d. -f1,2)
 Source: http://www.cmake.org/files/v%{downloaddir}/%n-%realversion.tar.gz
 %define online %(case %cmsplatf in (*onl_*_*) echo true;; (*) echo false;; esac)
@@ -43,8 +43,9 @@ export CMAKE_PREFIX_PATH=$CURL_ROOT:$ZLIB_ROOT:$EXPAT_ROOT:$BZ2LIB_ROOT
 # For OS X 10.8 ("Mountain Lion") do not use Objective-C in
 # C and C++ code.
 case %cmsplatf in
-  osx10*)
-    ./bootstrap --prefix=%i 
+  osx108_*)
+    CXXFLAGS="-DOS_OBJECT_USE_OBJC=0" CFLAGS="-DOS_OBJECT_USE_OBJC=0" \
+      ./configure --prefix=%i --init=build-flags.cmake --parallel=%compiling_processes
   ;;
   *)
     ./configure --prefix=%i --init=build-flags.cmake --parallel=%compiling_processes
