@@ -15,14 +15,11 @@ Provides: libboost_thread-gcc-mt.so
 Requires: tbb-toolfile
 Requires: boost-toolfile
 Requires: bz2lib-toolfile
-Requires: castor-toolfile
 Requires: clhep-toolfile
 Requires: db4-toolfile
-Requires: dcap-toolfile
 Requires: expat-toolfile
 Requires: fakesystem
 Requires: fftw3-toolfile
-Requires: fwlitedata-toolfile
 Requires: gcc-toolfile
 Requires: gdbm-toolfile
 Requires: gmake-toolfile
@@ -35,7 +32,6 @@ Requires: libungif-toolfile
 Requires: openssl-toolfile
 Requires: pcre-toolfile
 Requires: python-toolfile
-Requires: roofit-toolfile
 Requires: root-toolfile
 Requires: sigcpp-toolfile
 Requires: sqlite-toolfile
@@ -46,11 +42,15 @@ Requires: xrootd-toolfile
 Requires: xz-toolfile
 Requires: zlib-toolfile
 Requires: libxml2-toolfile
-Requires: llvm-gcc-toolfile
 
 %if %isamd64
 %if %islinux
 Requires: glibc-toolfile
+Requires: fwlitedata-toolfile
+Requires: dcap-toolfile
+Requires: castor-toolfile
+Requires: llvm-gcc-toolfile
+Requires: roofit-toolfile
 %endif
 %endif
 
