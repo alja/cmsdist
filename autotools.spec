@@ -87,6 +87,7 @@ echo "Foo"
 %{relocateConfig}bin/autoreconf
 %{relocateConfig}bin/autoscan
 %{relocateConfig}bin/autoupdate
+%{relocateConfig}bin/autopoint
 %{relocateConfig}bin/ifnames
 %{relocateConfig}bin/libtoolize
 %{relocateConfig}share/autoconf/autom4te.cfg
