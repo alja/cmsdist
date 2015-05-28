@@ -44,7 +44,7 @@ export CMAKE_PREFIX_PATH=$CURL_ROOT:$ZLIB_ROOT:$EXPAT_ROOT:$BZ2LIB_ROOT
 # C and C++ code.
 case %cmsplatf in
   osx10*)
-    ./bootstrap --prefix=%i -j %compiling_processes
+    ./bootstrap --prefix=%i 
   ;;
   *)
     ./configure --prefix=%i --init=build-flags.cmake --parallel=%compiling_processes
