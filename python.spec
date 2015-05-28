@@ -67,7 +67,7 @@ export CPPFLAGS
 # Bugfix for dbm package. Use ndbm.h header and gdbm compatibility layer.
 sed -ibak "s/ndbm_libs = \[\]/ndbm_libs = ['gdbm', 'gdbm_compat']/" setup.py
 
-if %isdarwin
+%if %isdarwin
 %define extraConfigureOptions --disable-toolbox-glue 
 %endif
 
