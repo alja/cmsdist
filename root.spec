@@ -113,7 +113,7 @@ TARGET_PLATF=
                             --disable-bonjour
                             --enable-x11
                             --with-gcc-toolchain=/usr 
-             --with-ld=ld
+             --with-ld=/usr/bin/g++
              --with-cxx=/usr/bin/g++
              --with-cc=/usr/bin/gcc
              "
