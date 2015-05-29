@@ -69,7 +69,7 @@ case "%{cmsplatf}" in
     make depend
     ;;
   osx*)
-	 alias makepend='gcc -M'
+	 alias makedepend="gcc -M"
     make depend
     ;;
 esac
