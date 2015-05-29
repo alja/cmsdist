@@ -11,7 +11,7 @@ Requires: zlib
 Requires: openssl
 
 %if "%{?cms_cxxflags:set}" != "set"
-%define cms_cxxflags -std=c++0x -O2
+%define cms_cxxflags -std=c++0x -O2 -fno-strict-aliasing -Wno-maybe-uninitialized -Wno-deprecated-declarations -Wno-unused-but-set-variable
 %endif
 
 %prep
