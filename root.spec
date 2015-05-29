@@ -17,7 +17,7 @@ Requires: castor dcap
 %endif
 
 %if %isdarwin
-Requires: freetype
+Requires: freetype 
 %endif
 
 %define keep_archives true
@@ -75,11 +75,7 @@ CONFIG_ARGS="--enable-table
              --disable-pgsql
              --disable-mysql
              --enable-c++11
-             --with-cxx=g++
-             --with-cc=gcc
-             --with-ld=g++
              --with-f77=gfortran
-             --with-gcc-toolchain=${GCC_ROOT}
              --disable-qt
              --disable-qtgsi
              --disable-hdfs
@@ -101,7 +97,12 @@ TARGET_PLATF=
                             --with-castor-libdir=${CASTOR_ROOT}/lib
                             --with-castor-incdir=${CASTOR_ROOT}/include/shift
                             --with-dcap-libdir=${DCAP_ROOT}/lib
-                            --with-dcap-incdir=${DCAP_ROOT}/include"
+                            --with-dcap-incdir=${DCAP_ROOT}/include
+                            --with-gcc-toolchain=${GCC_ROOT}
+             --with-ld=g++
+             --with-cxx=g++
+             --with-cc=gcc
+             "
 %endif
 
 %if %isdarwin
@@ -110,7 +111,12 @@ TARGET_PLATF=
                             --disable-builtin_afterimage
                             --disable-cocoa
                             --disable-bonjour
-                            --enable-x11"
+                            --enable-x11
+                            --with-gcc-toolchain=/usr 
+             --with-ld=ld
+             --with-cxx=/usr/bin/g++
+             --with-cc=/usr/bin/gcc
+             "
 %endif
 
 %if %isarmv7
