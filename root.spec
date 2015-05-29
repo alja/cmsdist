@@ -108,7 +108,8 @@ TARGET_PLATF=
   EXTRA_OPTS="${EXTRA_OPTS} --disable-rfio
                             --disable-builtin_afterimage
                             --disable-cocoa
-                            --enable-x11"
+                            --enable-x11
+                            --diable-bounjour"
 %endif
 
 %if %isarmv7
