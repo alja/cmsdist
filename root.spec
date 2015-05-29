@@ -112,10 +112,9 @@ TARGET_PLATF=
                             --disable-cocoa
                             --disable-bonjour
                             --enable-x11
-                            --with-gcc-toolchain=/usr 
-             --with-ld=/usr/bin/g++
-             --with-cxx=/usr/bin/g++
-             --with-cc=/usr/bin/gcc
+             --with-ld=clang++
+             --with-cxx=clang++
+             --with-cc=clang
              "
 %endif
 
