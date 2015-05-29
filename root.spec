@@ -109,7 +109,7 @@ TARGET_PLATF=
                             --disable-builtin_afterimage
                             --disable-cocoa
                             --enable-x11
-                            --diable-bounjour"
+                            --disable-bonjour"
 %endif
 
 %if %isarmv7
