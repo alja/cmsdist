@@ -65,7 +65,11 @@ esac
                        no-idea no-mdc2 no-rc5 no-ec no-ecdh no-ecdsa shared
 
 case "%{cmsplatf}" in
-  fc*|osx*)
+  fc*)
+    make depend
+    ;;
+  osx*)
+	 alias makepend='gcc -M'
     make depend
     ;;
 esac
