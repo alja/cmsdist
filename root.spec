@@ -158,4 +158,5 @@ make INSTALL="$cp" INSTALLDATA="$cp" install
 #rm -f %i/tutorials/pyroot/mrt.py
 
 find %{i} -type f -name '*.py' | xargs chmod -x
+find %{i} -type f -name '*.fits' | xargs chmod -x
 grep -R -l '#!.*python' %{i} | xargs chmod +x
