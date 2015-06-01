@@ -209,9 +209,6 @@ case %cmsplatf in
   *_gcc49*)
     COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Wa,--compress-debug-sections"
   ;;
-  osx*)
-    COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS"
-  ;;
 esac
 %endif
 
