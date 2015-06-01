@@ -111,6 +111,7 @@ TARGET_PLATF=
                             --disable-cocoa
                             --disable-bonjour
                             --enable-x11
+                            --with-gcc-toolchain=${GCC_ROOT}
              --with-ld=clang++
              --with-cxx=clang++
              --with-cc=clang
