@@ -60,7 +60,6 @@ CONFIG_ARGS="--enable-table
              --enable-explicitlink
              --enable-mathmore
              --enable-minuit2
-             --disable-builtin-lzma
              --enable-fftw3
              --with-fftw3-incdir=${FFTW3_ROOT}/include
              --with-fftw3-libdir=${FFTW3_ROOT}/lib
@@ -98,6 +97,7 @@ TARGET_PLATF=
                             --with-dcap-libdir=${DCAP_ROOT}/lib
                             --with-dcap-incdir=${DCAP_ROOT}/include
                             --with-gcc-toolchain=${GCC_ROOT}
+             --disable-builtin-lzma
              --with-ld=g++
              --with-cxx=g++
              --with-cc=gcc
