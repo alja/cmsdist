@@ -53,9 +53,6 @@ done
 export ROOT_INCLUDE_PATH
 
 CONFIG_ARGS="--enable-table
-             --disable-builtin-pcre
-             --disable-builtin-freetype
-             --disable-builtin-zlib
              --enable-python --with-python-libdir=${PYTHON_ROOT}/lib --with-python-incdir=${PYTHON_ROOT}/include/python${PYTHONV}
              --enable-explicitlink
              --enable-mathmore
@@ -97,7 +94,10 @@ TARGET_PLATF=
                             --with-dcap-libdir=${DCAP_ROOT}/lib
                             --with-dcap-incdir=${DCAP_ROOT}/include
                             --with-gcc-toolchain=${GCC_ROOT}
+             --disable-builtin-pcre
+             --disable-builtin-freetype
              --disable-builtin-lzma
+             --disable-builtin-zlib
              --with-ld=g++
              --with-cxx=g++
              --with-cc=gcc
