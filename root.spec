@@ -9,7 +9,7 @@ Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{
 %define isdarwin %(case %{cmsos} in (osx*) echo 1 ;; (*) echo 0 ;; esac)
 %define isarmv7 %(case %{cmsplatf} in (*armv7*) echo 1 ;; (*) echo 0 ;; esac)
 
-Requires: gsl libjpg libpng libtiff pcre python fftw3 xz xrootd libxml2 openssl zlib
+Requires: gcc gsl libjpg libpng libtiff pcre python fftw3 xz xrootd libxml2 openssl zlib
 
 %if %islinux
 Requires: castor dcap
@@ -53,10 +53,14 @@ done
 export ROOT_INCLUDE_PATH
 
 CONFIG_ARGS="--enable-table
+             --disable-builtin-pcre
+             --disable-builtin-freetype
+             --disable-builtin-zlib
              --enable-python --with-python-libdir=${PYTHON_ROOT}/lib --with-python-incdir=${PYTHON_ROOT}/include/python${PYTHONV}
              --enable-explicitlink
              --enable-mathmore
              --enable-minuit2
+             --disable-builtin-lzma
              --enable-fftw3
              --with-fftw3-incdir=${FFTW3_ROOT}/include
              --with-fftw3-libdir=${FFTW3_ROOT}/lib
@@ -70,12 +74,17 @@ CONFIG_ARGS="--enable-table
              --disable-pgsql
              --disable-mysql
              --enable-c++11
+             --with-cxx=g++
+             --with-cc=gcc
+             --with-ld=g++
              --with-f77=gfortran
+             --with-gcc-toolchain=${GCC_ROOT}
              --disable-qt
              --disable-qtgsi
              --disable-hdfs
              --disable-vdt
              --disable-oracle ${EXTRA_CONFIG_ARGS}
+             --build=debug
              --enable-roofit"
 
 #if #isarmv7
@@ -92,16 +101,7 @@ TARGET_PLATF=
                             --with-castor-libdir=${CASTOR_ROOT}/lib
                             --with-castor-incdir=${CASTOR_ROOT}/include/shift
                             --with-dcap-libdir=${DCAP_ROOT}/lib
-                            --with-dcap-incdir=${DCAP_ROOT}/include
-                            --with-gcc-toolchain=${GCC_ROOT}
-             --disable-builtin-pcre
-             --disable-builtin-freetype
-             --disable-builtin-lzma
-             --disable-builtin-zlib
-             --with-ld=g++
-             --with-cxx=g++
-             --with-cc=gcc
-             "
+                            --with-dcap-incdir=${DCAP_ROOT}/include"
 %endif
 
 %if %isdarwin
@@ -110,12 +110,7 @@ TARGET_PLATF=
                             --disable-builtin_afterimage
                             --disable-cocoa
                             --disable-bonjour
-                            --enable-x11
-                            --with-gcc-toolchain=${GCC_ROOT}
-             --with-ld=clang++
-             --with-cxx=clang++
-             --with-cc=clang
-             "
+                            --enable-x11"
 %endif
 
 %if %isarmv7
@@ -128,8 +123,16 @@ CXXFLAGS+=-D__ROOFIT_NOBANNER
 EOF
 
 ./configure ${TARGET_PLATF} ${CONFIG_ARGS} ${EXTRA_OPTS}
+make -k %makeprocesses || true
 
-make %makeprocesses
+#%if %isdarwin
+#cd interpreter/llvm/obj
+#CC=clang CXX=clang++ ../src/configure
+#make %makeprocesses
+#cd -
+#make %makeprocesses
+#%endif
+
 
 %install
 # Override installers if we are using GNU fileutils cp.  On OS X
