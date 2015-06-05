@@ -2,7 +2,7 @@
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
 #%define tag v6-02-10
-%define tag 318d29d754e9fa42eab0f38232fccdfa8eda1aba
+%define tag 7276bfa1d97834891f475f13b6b226b90cf8f332
 %define branch v6-02-00-patches
 #Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 Source: git+https://github.com/gartung/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
@@ -127,7 +127,7 @@ TARGET_PLATF=
 
 cat <<\EOF >> MyConfig.mk
 CFLAGS+=-D__ROOFIT_NOBANNER
-CXXFLAGS+=-D__ROOFIT_NOBANNER
+CXXFLAGS+=-D__ROOFIT_NOBANNER -fno-omit-frame-pointer
 EOF
 
 ./configure ${TARGET_PLATF} ${CONFIG_ARGS} ${EXTRA_OPTS}
