@@ -38,20 +38,12 @@ EOF_TOOLFILE
 
 cat << \EOF_TOOLFILE > %{i}/etc/scram.d/root_cxxdefaults.xml
 <tool name="root_cxxdefaults" version="@TOOL_VERSION@">
-%if %isdarwin
-  <runtime name="ROOT_GCC_TOOLCHAIN" value="/usr" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/include/c++" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/include/c++/4.2.1" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/include/c++/4.2.1/backward" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/include" type="path"/>
-%else
   <runtime name="ROOT_GCC_TOOLCHAIN" value="@GCC_ROOT@" type="path"/>
   <runtime name="ROOT_INCLUDE_PATH" value="@GCC_ROOT@/include/c++/@GCC_REALVERSION@" type="path"/>
   <runtime name="ROOT_INCLUDE_PATH" value="@GCC_ROOT@/include/c++/@GCC_REALVERSION@/@TARGET_TRIPLET@" type="path"/>
   <runtime name="ROOT_INCLUDE_PATH" value="@GCC_ROOT@/include/c++/@GCC_REALVERSION@/backward" type="path"/>
   <runtime name="ROOT_INCLUDE_PATH" value="/usr/local/include" type="path"/>
   <runtime name="ROOT_INCLUDE_PATH" value="/usr/include" type="path"/>
-%endif
 </tool>
 EOF_TOOLFILE
 

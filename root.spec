@@ -1,9 +1,10 @@
 ### RPM lcg root 6.02.10
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag v6-02-10
+%define tag 418dac97cca3d82240aa6c94efbd3fd2dc1cbd8f
 %define branch v6-02-00-patches
-Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
+#Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
+Source: git+https://github.com/gartung/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
 %define isdarwin %(case %{cmsos} in (osx*) echo 1 ;; (*) echo 0 ;; esac)
@@ -74,9 +75,6 @@ CONFIG_ARGS="--enable-table
              --disable-pgsql
              --disable-mysql
              --enable-c++11
-             --with-cxx=g++
-             --with-cc=gcc
-             --with-ld=g++
              --with-f77=gfortran
              --with-gcc-toolchain=${GCC_ROOT}
              --disable-qt
@@ -84,7 +82,6 @@ CONFIG_ARGS="--enable-table
              --disable-hdfs
              --disable-vdt
              --disable-oracle ${EXTRA_CONFIG_ARGS}
-             --build=debug
              --enable-roofit"
 
 #if #isarmv7
@@ -101,7 +98,11 @@ TARGET_PLATF=
                             --with-castor-libdir=${CASTOR_ROOT}/lib
                             --with-castor-incdir=${CASTOR_ROOT}/include/shift
                             --with-dcap-libdir=${DCAP_ROOT}/lib
-                            --with-dcap-incdir=${DCAP_ROOT}/include"
+                            --with-dcap-incdir=${DCAP_ROOT}/include
+             --with-cxx=g++
+             --with-cc=gcc
+             --with-ld=g++
+             "
 %endif
 
 %if %isdarwin
@@ -111,7 +112,11 @@ TARGET_PLATF=
                             --disable-builtin_afterimage
                             --disable-cocoa
                             --disable-bonjour
-                            --enable-x11"
+                            --enable-x11
+             --with-cxx=g++
+             --with-cc=gcc
+             --with-ld=g++
+             "
 %endif
 
 %if %isarmv7
@@ -124,15 +129,8 @@ CXXFLAGS+=-D__ROOFIT_NOBANNER
 EOF
 
 ./configure ${TARGET_PLATF} ${CONFIG_ARGS} ${EXTRA_OPTS}
-make -k %makeprocesses || true
+make  %makeprocesses 
 
-#%if %isdarwin
-#cd interpreter/llvm/obj
-#CC=clang CXX=clang++ ../src/configure
-#make %makeprocesses
-#cd -
-#make %makeprocesses
-#%endif
 
 
 %install
