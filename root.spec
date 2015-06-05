@@ -107,7 +107,7 @@ TARGET_PLATF=
 
 %if %isdarwin
   TARGET_PLATF=macosx64
-  LLVMDEV=1
+  export LLVMDEV=1
   EXTRA_OPTS="${EXTRA_OPTS} --disable-rfio
                             --disable-builtin_afterimage
                             --disable-cocoa
@@ -116,6 +116,7 @@ TARGET_PLATF=
              --with-cxx=g++
              --with-cc=gcc
              --with-ld=g++
+             --build=debug
              "
 %endif
 
