@@ -1,7 +1,8 @@
 ### RPM lcg root 6.02.10
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag 418dac97cca3d82240aa6c94efbd3fd2dc1cbd8f
+#%define tag v6-02-10
+%define tag 318d29d754e9fa42eab0f38232fccdfa8eda1aba
 %define branch v6-02-00-patches
 #Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 Source: git+https://github.com/gartung/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
@@ -76,7 +77,6 @@ CONFIG_ARGS="--enable-table
              --disable-mysql
              --enable-c++11
              --with-f77=gfortran
-             --with-gcc-toolchain=${GCC_ROOT}
              --disable-qt
              --disable-qtgsi
              --disable-hdfs
@@ -102,21 +102,23 @@ TARGET_PLATF=
              --with-cxx=g++
              --with-cc=gcc
              --with-ld=g++
+             --with-gcc-toolchain=${GCC_ROOT}
              "
 %endif
 
 %if %isdarwin
   TARGET_PLATF=macosx64
-  export LLVMDEV=1
+#  export LLVMDEV=1
   EXTRA_OPTS="${EXTRA_OPTS} --disable-rfio
                             --disable-builtin_afterimage
                             --disable-cocoa
                             --disable-bonjour
                             --enable-x11
+             
              --with-cxx=g++
              --with-cc=gcc
              --with-ld=g++
-             --build=debug
+             --with-gcc-toolchain=${GCC_ROOT}
              "
 %endif
 
@@ -131,7 +133,6 @@ EOF
 
 ./configure ${TARGET_PLATF} ${CONFIG_ARGS} ${EXTRA_OPTS}
 make  %makeprocesses 
-
 
 
 %install
