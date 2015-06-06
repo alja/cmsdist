@@ -1,10 +1,9 @@
-### RPM external boost 1.58.0
+### RPM external boost 1.57.0
 
-#%define tag 040a06a
-#%define branch cms/v%realversion
-#%define github_user cms-externals
-#Source: git+https://github.com/%github_user/%n.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}.tgz
-Source: http://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.tar.bz2/download
+%define tag 040a06a
+%define branch cms/v%realversion
+%define github_user cms-externals
+Source: git+https://github.com/%github_user/%n.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}.tgz
 
 %if "%{?cms_cxxflags:set}" != "set"
 %define cms_cxxflags -std=c++11 -O2
@@ -13,7 +12,7 @@ Source: http://sourceforge.net/projects/boost/files/boost/1.58.0/boost_1_58_0.ta
 Requires: python bz2lib zlib
 
 %prep
-%setup -n boost_1_58_0
+%setup -n %{n}-%{realversion}
 
 %build
 case %cmsos in 
