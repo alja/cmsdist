@@ -29,7 +29,7 @@ find . -type f | while read f; do
 done
 
 %if %isdarwin
-patch0 -p1
+%patch0 -p1
 %endif
 
 
