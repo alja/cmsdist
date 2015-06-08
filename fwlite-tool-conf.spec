@@ -42,6 +42,7 @@ Requires: xrootd-toolfile
 Requires: xz-toolfile
 Requires: zlib-toolfile
 Requires: libxml2-toolfile
+Requires: llvm-gcc-toolfile
 
 %if %isamd64
 %if %islinux
@@ -49,7 +50,6 @@ Requires: glibc-toolfile
 Requires: fwlitedata-toolfile
 Requires: dcap-toolfile
 Requires: castor-toolfile
-Requires: llvm-gcc-toolfile
 Requires: roofit-toolfile
 %endif
 %endif
