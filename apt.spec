@@ -9,7 +9,7 @@ Source0: git://github.com/cms-sw/apt-rpm.git?obj=master/%{realversion}&export=ap
 Source1: bootstrap
 Source2: http://search.cpan.org/CPAN/authors/id/T/TL/TLBDK/RPM-Header-PurePerl-1.0.2.tar.gz
 
-Requires: rpm
+Requires: rpm gcc
 BuildRequires: gcc
 
 %prep
