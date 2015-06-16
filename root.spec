@@ -1,11 +1,17 @@
 ### RPM lcg root 6.02.10
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
+
 #%define tag v6-02-10
-%define tag dc337b6090cf411d3bc5e4916915c906d0623e8f
-%define branch osx10-10-changes
+#%define tag dc337b6090cf411d3bc5e4916915c906d0623e8f
+%define tag 14e145b29d9955529ef91261d57a03b7f66d7e00
+
+#%define branch osx10-10-changes
+#%define branch osx-alja
+
 #Source: git+http://root.cern.ch/git/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
-Source: git+https://github.com/gartung/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
+#Source: git+https://github.com/gartung/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
+Source: git+https://github.com/alja/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
 %define isdarwin %(case %{cmsos} in (osx*) echo 1 ;; (*) echo 0 ;; esac)
@@ -81,6 +87,8 @@ CONFIG_ARGS="--enable-table
              --disable-qtgsi
              --disable-hdfs
              --disable-vdt
+             --build=debug
+             --enable-builtin-glew
              --disable-oracle ${EXTRA_CONFIG_ARGS}
              --enable-roofit"
 
@@ -131,7 +139,7 @@ CXXFLAGS+=-D__ROOFIT_NOBANNER -fno-omit-frame-pointer
 EOF
 
 ./configure ${TARGET_PLATF} ${CONFIG_ARGS} ${EXTRA_OPTS}
-make  %makeprocesses 
+make  FORCELLVM=1 %makeprocesses 
 
 
 %install
