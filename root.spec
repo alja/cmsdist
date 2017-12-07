@@ -1,9 +1,14 @@
 ### RPM lcg root 6.11.03
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag 51cce933db7cc6ffed90ad699c7a2b5b2de270f3 
-%define branch cms/master/04959b290b
-%define github_user cms-sw
+#%define tag 9a2accf7e79d19657d3d6b3e88ee94309b06ccba
+#%define branch cms/master/6b5785c
+#%define github_user cms-sw 
+
+%define tag d7dce16871ee9b43be7b043bed360ce8db783be7
+%define branch v6-10-08-http-web
+%define github_user linev 
+
 Source: git+https://github.com/%{github_user}/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
@@ -41,13 +46,14 @@ export CFLAGS=-D__ROOFIT_NOBANNER
 export CXXFLAGS=-D__ROOFIT_NOBANNER
 
 cmake ../%{n}-%{realversion} \
-  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_INSTALL_PREFIX="%{i}" \
   -DCMAKE_C_COMPILER=gcc \
   -DCMAKE_CXX_COMPILER=g++ \
   -DCMAKE_Fortran_COMPILER=gfortran \
   -DCMAKE_LINKER=ld \
   -Droot7=ON \
+  -Dhttp=ON \
   -Dfail-on-missing=ON \
   -Dgnuinstall=OFF \
   -Droofit=ON \
@@ -83,7 +89,7 @@ cmake ../%{n}-%{realversion} \
   -DOPENSSL_ROOT_DIR="${OPENSSL_ROOT}" \
   -DOPENSSL_INCLUDE_DIR="${OPENSSL_ROOT}/include" \
   -Dpython=ON \
-  -Dxrootd=ON \
+  -Dxrootd=OFF \
   -Dbuiltin_xrootd=OFF \
   -DXROOTD_INCLUDE_DIR="${XROOTD_ROOT}/include/xrootd" \
   -DXROOTD_ROOT_DIR="${XROOTD_ROOT}" \

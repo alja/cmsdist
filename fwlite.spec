@@ -1,9 +1,9 @@
-### RPM cms fwlite CMSSW_8_1_X_2016-06-12-2300_FWLITE
+### RPM cms fwlite CMSSW_9_4_1_FWLITE
 
 Requires: fwlite-tool-conf python
 
 %define saveDeps        yes
-%define branch          CMSSW_7_0_X
+%define branch          CMSSW_9_4_X
 %define gitcommit       %(echo %realversion | sed -e 's|_FWLITE||')
 
 # Switch off building tests
