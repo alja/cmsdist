@@ -1,9 +1,9 @@
 ### RPM lcg root 6.10.09
 ## INITENV +PATH PYTHONPATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag 57f8055b2ccf22d668c115c21acb84c6f802c76e
-%define branch cms/v6-10-00-patches/798ed3251f
-%define github_user cms-sw
+%define tag 2ec44742d9d71cd2456281fdc1202457c31d9970
+%define branch eve7-1
+%define github_user osschar
 Source: git+https://github.com/%{github_user}/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
@@ -41,7 +41,7 @@ export CFLAGS=-D__ROOFIT_NOBANNER
 export CXXFLAGS=-D__ROOFIT_NOBANNER
 
 cmake ../%{n}-%{realversion} \
-  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_BUILD_TYPE=Debug \
   -DCMAKE_INSTALL_PREFIX="%{i}" \
   -DCMAKE_C_COMPILER=gcc \
   -DCMAKE_CXX_COMPILER=g++ \
