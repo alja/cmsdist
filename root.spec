@@ -4,7 +4,7 @@
 ## INITENV SET ROOTSYS %{i}
 
 
-%define tag 76296189001857c61d6616698d6633c13646a7fa
+%define tag 35be7df3c3a29325deb1d92214c73b66888694db
 %define branch reve-selection
 %define github_user osschar
 Source: git+https://github.com/%{github_user}/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
