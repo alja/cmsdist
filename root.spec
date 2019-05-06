@@ -1,10 +1,12 @@
-### RPM lcg root 6.12.07
+### RPM lcg root 6.17.03
 ## INITENV +PATH PYTHON27PATH %{i}/lib
 ## INITENV +PATH PYTHON3PATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag c6b1056b4bd0292c7ae25b9a7deadf9dd168edbb
-%define branch cms/v6-12-00-patches/34f75bf
-%define github_user cms-sw
+
+
+%define tag 76296189001857c61d6616698d6633c13646a7fa
+%define branch reve-selection
+%define github_user osschar
 Source: git+https://github.com/%{github_user}/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
@@ -43,7 +45,8 @@ export CXXFLAGS=-D__ROOFIT_NOBANNER
 
 cmake ../%{n}-%{realversion} \
   -G Ninja \
-  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DLLVM_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX="%{i}" \
   -DCMAKE_C_COMPILER=gcc \
   -DCMAKE_CXX_COMPILER=g++ \
@@ -51,12 +54,16 @@ cmake ../%{n}-%{realversion} \
   -DCMAKE_LINKER=ld \
   -DCMAKE_VERBOSE_MAKEFILE=TRUE \
   -Droot7=ON \
+  -DCMAKE_CXX_STANDARD=17 \
+  -Dhttp=ON \
+  -Dwebui=ON \
   -Dfail-on-missing=ON \
   -Dgnuinstall=OFF \
   -Droofit=ON \
   -Dvdt=OFF \
   -Dhdfs=OFF \
   -Dqt=OFF \
+  -Dtmva=ON \
   -Dqtgsi=OFF \
   -Dpgsql=OFF \
   -Dsqlite=OFF \
@@ -73,15 +80,14 @@ cmake ../%{n}-%{realversion} \
   -Dminuit2=ON \
   -Dmathmore=ON \
   -Dexplicitlink=ON \
-  -Dtable=ON \
   -Dbuiltin_tbb=OFF \
   -Dbuiltin_pcre=OFF \
   -Dbuiltin_freetype=OFF \
   -Dbuiltin_zlib=OFF \
   -Dbuiltin_lzma=OFF \
   -Dbuiltin_gsl=OFF \
+  -Darrow=OFF \
   -DGSL_CONFIG_EXECUTABLE="$(which gsl-config)" \
-  -Dcxx17=ON \
   -Dssl=ON \
   -DOPENSSL_ROOT_DIR="${OPENSSL_ROOT}" \
   -DOPENSSL_INCLUDE_DIR="${OPENSSL_ROOT}/include" \
@@ -109,7 +115,6 @@ cmake ../%{n}-%{realversion} \
   -Dchirp=OFF \
   -Dsrp=OFF \
   -Ddavix=ON \
-  -DDAVIX_DIR=${DAVIX_ROOT} \
   -Dglite=OFF \
   -Dsapdb=OFF \
   -Dalien=OFF \
@@ -135,9 +140,7 @@ cmake ../%{n}-%{realversion} \
   -DLIBLZ4_LIBRARY="${LZ4_ROOT}/lib/liblz4.%{soext}" \
   -DZLIB_ROOT="${ZLIB_ROOT}" \
   -DZLIB_INCLUDE_DIR="${ZLIB_ROOT}/include" \
-  -DLIBXML2_INCLUDE_DIR="${LIBXML2_ROOT}/include/libxml2" \
-  -DLIBXML2_LIBRARIES="${LIBXML2_ROOT}/lib/libxml2.%{soext}" \
-  -DCMAKE_PREFIX_PATH="${XZ_ROOT};${OPENSSL_ROOT};${GIFLIB_ROOT};${FREETYPE_ROOT};${PYTHON_ROOT};${LIBPNG_ROOT};${PCRE_ROOT};${TBB_ROOT};${OPENBLAS_ROOT};${LZ4_ROOT}"
+  -DCMAKE_PREFIX_PATH="${GSL_ROOT};${XZ_ROOT};${OPENSSL_ROOT};${GIFLIB_ROOT};${FREETYPE_ROOT};${PYTHON_ROOT};${LIBPNG_ROOT};${PCRE_ROOT};${TBB_ROOT};${OPENBLAS_ROOT};${DAVIX_ROOT};${LZ4_ROOT};${LIBXML2_ROOT}"
 
 # For CMake cache variables: http://www.cmake.org/cmake/help/v3.2/manual/cmake-language.7.html#lists
 # For environment variables it's OS specific: http://www.cmake.org/Wiki/CMake_Useful_Variables
@@ -178,8 +181,3 @@ rm -rf build
 
 %post
 %{relocateConfig}etc/cling/llvm/Config/llvm-config.h
-%{relocateConfig}bin/root-config
-%{relocateConfig}config/Makefile.config
-%{relocateConfig}etc/dictpch/allCppflags.txt
-%{relocateConfig}include/compiledata.h
-%{relocateConfig}include/RConfigOptions.h
