@@ -2,9 +2,9 @@
 ## INITENV +PATH PYTHON27PATH %{i}/lib
 ## INITENV +PATH PYTHON3PATH %{i}/lib
 ## INITENV SET ROOTSYS %{i}
-%define tag 33516d6315bb044ba69d06132253d6f6259403fd
-%define branch cms/master/9af6829
-%define github_user cms-sw
+%define tag 5659a86963c620fd51ee20533346006fef050b96
+%define branch custom
+%define github_user alja
 Source: git+https://github.com/%{github_user}/root.git?obj=%{branch}/%{tag}&export=%{n}-%{realversion}&output=/%{n}-%{realversion}-%{tag}.tgz
 
 %define islinux %(case %{cmsos} in (slc*|fc*) echo 1 ;; (*) echo 0 ;; esac)
@@ -47,7 +47,9 @@ cmake ../%{n}-%{realversion} \
   -DCMAKE_Fortran_COMPILER=gfortran \
   -DCMAKE_LINKER=ld \
   -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-  -Droot7=ON \
+  -Droot7=ON \ \
+  -Dhttp=ON \
+  -Dwebui=ON \
   -Dfail-on-missing=ON \
   -Dgnuinstall=OFF \
   -Droofit=ON \
