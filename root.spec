@@ -47,7 +47,7 @@ cmake ../%{n}-%{realversion} \
   -DCMAKE_Fortran_COMPILER=gfortran \
   -DCMAKE_LINKER=ld \
   -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-  -Droot7=ON \ \
+  -Droot7=ON \
   -Dhttp=ON \
   -Dwebui=ON \
   -Dfail-on-missing=ON \
